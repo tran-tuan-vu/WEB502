@@ -21,9 +21,9 @@ function isPrime(num: number): boolean {
 }
 
 // ==================Chạy hàm==================== //
-// console.log("Tổng là:", tinhTong(16, 12, 17, 18, 22, 37));
+console.log("Tổng là:", tinhTong(16, 12, 17, 18, 22, 37));
 console.log("Số lần xuất hiện của kí tự: ", traVe("Tran Tuan Vu learn IT in FPT Polytechnic", "t"));
-// console.log("(2) là số Nguyên tố: ", isPrime(2));
-// console.log("(15) là số Nguyên tố: ", isPrime(15));
-// console.log("(17 )là số Nguyên tố: ", isPrime(17));
+console.log("(2) là số Nguyên tố: ", isPrime(2));
+console.log("(15) là số Nguyên tố: ", isPrime(15));
+console.log("(17 )là số Nguyên tố: ", isPrime(17));
 
