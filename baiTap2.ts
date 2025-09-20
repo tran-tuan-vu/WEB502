@@ -7,7 +7,7 @@ function traVe(str: string, char: string): number {
     if (char.length !== 1){
         throw new Error("Vui lòng nhập đúng 1 kí tự");
     }
-    return str.split("").filter(c => c === char).length;
+    return str.toLowerCase().split("").filter(c => c === char.toLowerCase()).length;
 }
 //3. Hàm trả về boolean kiểm tra 1 số có phải số nguyên tố
 function isPrime(num: number): boolean {
@@ -21,9 +21,9 @@ function isPrime(num: number): boolean {
 }
 
 // ==================Chạy hàm==================== //
-console.log("Tổng là:", tinhTong(16, 12, 17, 18, 22, 37));
-console.log("Số lần xuất hiện của kí tự: ", traVe("Tran Tuan Vu learn IT in FPT Polytechnic", "T"));
-console.log("(2) là số Nguyên tố: ", isPrime(2));
-console.log("(15) là số Nguyên tố: ", isPrime(15));
-console.log("(17 )là số Nguyên tố: ", isPrime(17));
+// console.log("Tổng là:", tinhTong(16, 12, 17, 18, 22, 37));
+console.log("Số lần xuất hiện của kí tự: ", traVe("Tran Tuan Vu learn IT in FPT Polytechnic", "t"));
+// console.log("(2) là số Nguyên tố: ", isPrime(2));
+// console.log("(15) là số Nguyên tố: ", isPrime(15));
+// console.log("(17 )là số Nguyên tố: ", isPrime(17));
 
