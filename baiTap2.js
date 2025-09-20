@@ -7,11 +7,11 @@ function tinhTong() {
     return numbers.reduce(function (total, num) { return total + num; }, 0);
 }
 // 2. Hàm trả về số lượng xuất hiện của 1 kí tự trong chuỗi
-function traVe(str, char) {
+function traVe(str: string, char: string): number {
     if (char.length !== 1) {
         throw new Error("Vui lòng nhập đúng 1 kí tự");
     }
-    return str.split("").filter(function (c) { return c === char; }).length;
+    return str.split("").filter(c => c === char ).length;
 }
 //3. Hàm trả về boolean kiểm tra 1 số có phải số nguyên tố
 function isPrime(num) {
