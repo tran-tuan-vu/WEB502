@@ -1,14 +1,16 @@
+"use strict";
 //  1. Intersection Types (Kiểu Giao nhau)
-var e1 = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const e1 = {
     name: "NV1",
     age: 20,
     role: "user",
 };
-var staff1 = {
+const staff1 = {
     name: "staff1",
     age: 20,
 };
-var m1 = {
+const m1 = {
     name: "M1",
     age: 30,
     role: "manager",
@@ -26,7 +28,7 @@ var m1 = {
 //   success: boolean;
 //   data: ICategory;
 // }
-var productRes = {
+const productRes = {
     message: "Ok",
     code: 200,
     success: true,
@@ -34,7 +36,7 @@ var productRes = {
         title: "San pham 1",
     },
 };
-var categoryRes = {
+const categoryRes = {
     message: "Ok",
     code: 200,
     success: true,
@@ -56,7 +58,7 @@ var OrderStatus;
     OrderStatus["CONFIRMED"] = "CONFIRMED";
     OrderStatus["SHIPPING"] = "SHIPPING";
 })(OrderStatus || (OrderStatus = {}));
-var orderStatus = "SHIPPING";
+const orderStatus = "SHIPPING";
 if (orderStatus == OrderStatus.CONFIRMED) {
     console.log(OrderStatus.SHIPPING);
 }
@@ -66,3 +68,4 @@ var PaymentStatus;
     PaymentStatus["FAILED"] = "FAILED";
 })(PaymentStatus || (PaymentStatus = {}));
 console.log(PaymentStatus.SUCCESS);
+//# sourceMappingURL=interface.js.map
