@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface IProduct {
   id: number;
@@ -10,7 +11,7 @@ interface IProduct {
   image: string;
 }
 
-const List: React.FC = () => {
+function List() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
@@ -43,46 +44,53 @@ const List: React.FC = () => {
           currentProducts.map((product) => ( // Hiển thị sản phẩm theo currentProducts
             <div className="col-md-3 mb-4" key={product.id}>
               <div className="card h-100 shadow-sm">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="card-img-top p-3"
-                  style={{ height: "200px", objectFit: "contain" }}
-                />
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p className="card-text text-truncate">{product.description}</p>
-                  <div className="mt-auto d-flex justify-content-between">
-                    <button className="btn btn-primary">Mua ngay</button>
-                    <button className="btn btn-outline-success">Add cart</button>
+                <Link
+                  to={`/products/${product.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="card-img-top p-3"
+                    style={{ height: "200px", objectFit: "contain" }}
+                  />
+                  <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">{product.title}</h5>
+                    <p className="card-text text-truncate">{product.description}</p>
                   </div>
+                </Link>
+                <div className="mt-auto d-flex justify-content-between">
+                  <button className="btn btn-primary">Mua ngay</button>
+                  <button className="btn btn-outline-success">Add cart</button>
                 </div>
               </div>
             </div>
+
           ))) : (
           <p className="text-center">Không tìm thấy sản phẩm nào</p>
         )}
       </div>
 
-      {totalPages > 1 && (
-        <nav>
-          <ul className="pagination justify-content-center">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <li
-                key={i}
-                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(i + 1)} //Chuyển trang khi click
+      {
+        totalPages > 1 && (
+          <nav>
+            <ul className="pagination justify-content-center">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <li
+                  key={i}
+                  className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
                 >
-                  {i + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>)}
-    </div>
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(i + 1)} //Chuyển trang khi click
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>)
+      }
+    </div >
   );
 };
 
