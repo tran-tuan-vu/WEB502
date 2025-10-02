@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import Button from "./components/Button";
 import ColorButton from "./components/ColorButton";
+import MyUseState from "./components/MyUseState";
 
 function App() {
   const handleClick = (name: string) => {
@@ -16,7 +17,7 @@ function App() {
 
       {/* <Button label="Click Me 1" onClick={() => handleClick("hoadv")} /> */}
       <Button label="Click Me 3" onClick={handleClick2} />
-
+      <MyUseState />
       <Toaster />
     </>
   );
