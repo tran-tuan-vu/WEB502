@@ -1,0 +1,60 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Áo tay dài",
+      "price": 150000,
+      "description": "Áo cotton thoáng mát",
+      "image": "ao_tay_dai_1.webp"
+    },
+    {
+      "id": 2,
+      "title": "Áo tay dài",
+      "price": 350000,
+      "description": "Phong cách hiện đại",
+      "image": "ao_tay_dai_2.webp"
+    },
+    {
+      "id": 3,
+      "title": "Áo tay dài",
+      "price": 150000,
+      "description": "Áo cotton thoáng mát",
+      "image": "ao_tay_dai_1.webp"
+    },
+    {
+      "id": 4,
+      "title": "Áo tay dài",
+      "price": 350000,
+      "description": "Phong cách hiện đại",
+      "image": "ao_tay_dai_2.webp"
+    },
+    {
+      "id": 5,
+      "title": "Áo tay dài",
+      "price": 150000,
+      "description": "Áo cotton thoáng mát",
+      "image": "ao_tay_dai_1.webp"
+    },
+    {
+      "id": 6,
+      "title": "Áo tay dài",
+      "price": 350000,
+      "description": "Phong cách hiện đại",
+      "image": "ao_tay_dai_2.webp"
+    },
+    {
+      "id": 7,
+      "title": "Áo tay dài",
+      "price": 150000,
+      "description": "Áo cotton thoáng mát",
+      "image": "ao_tay_dai_1.webp"
+    },
+    {
+      "id": 8,
+      "title": "Áo tay dài",
+      "price": 350000,
+      "description": "Phong cách hiện đại",
+      "image": "ao_tay_dai_2.webp"
+    }
+  ]
+}

@@ -19,9 +19,9 @@ function List() {
   const { search } = useOutletContext<{ search: string }>();
 
   useEffect(() => {
-    axios.get("https://fakestoreapi.com/products")
+    axios.get("http://localhost:3000/products")
       .then((res) => setProducts(res.data))
-      .catch((err) => console.log("Lỗi API: ", err));
+      .catch((err) => console.log("Lỗi khi lấy dữ liệu từ local: ", err));
   }, []);
   //Filter theo search trước khi phân trang
   const filteredProducts = products.filter((p) =>
@@ -48,7 +48,10 @@ function List() {
                   to={`/products/${product.id}`}
                   style={{ textDecoration: "none", color: "inherit" }}>
                   <img
-                    src={product.image}
+                    src={
+                      product.image.startsWith("/images")
+                      ? product.image: `/images/${product.image}`
+                    }
                     alt={product.title}
                     className="card-img-top p-3"
                     style={{ height: "200px", objectFit: "contain" }}

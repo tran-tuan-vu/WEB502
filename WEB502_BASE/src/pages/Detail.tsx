@@ -15,7 +15,7 @@ function Detail() {
     const [product, setProduct] = useState<IProduct | null>(null);
 
     useEffect(() => {
-        axios.get(`https://fakestoreapi.com/products/${id}`)
+        axios.get(`http://localhost:3000/products/${id}`)
             .then((res) => setProduct(res.data))
             .catch((err) => console.log("Lỗi API: ", err));
     }, [id]);
@@ -28,7 +28,10 @@ function Detail() {
             <div className="row">
                 <div className="col-md-5">
                     <img
-                        src={product.image}
+                        src={
+                            product.image.startsWith("/images")
+                            ? product.image : `/images/${product.image}`
+                        }
                         alt={product.title}
                         className="img-fluid border rounded p-3"
                         style={{ maxHeight: "400px", objectFit: "contain" }}
