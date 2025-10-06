@@ -1,80 +1,135 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+interface IProduct {
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+}
 
 function Add() {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [formData, setFormData] = useState<IProduct>({
+    title: "",
+    price: 0,
+    description: "",
+    image: "",
+  });
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  // Xử lý nhập dữ liệu text
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: name === "price" ? Number(value) : value });
+  };
+
+  // Xử lý chọn file ảnh
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  // Xử lý submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!title || !price || !description || !image) {
-      alert("Vui lòng nhập đầy đủ thông tin");
-      return;
-    }
     try {
-      const newProduct = { title, price, description, image };
-      const res = await axios.post("https://fakestoreapi.com/products", newProduct);
-      console.log("Thêm sản phẩm thành công: ", res.data);
-      alert("Sản phẩm đã được thêm!");
-      //Reset form
-      setTitle("");
-      setPrice(0);
-      setDescription("");
-      setImage("");
+      setLoading(true);
+      let imageUrl = "";
+
+      // Nếu có upload file thì gửi lên server upload
+      if (file) {
+        const uploadData = new FormData();
+        uploadData.append("image", file);
+
+        const uploadRes = await axios.post("http://localhost:4000/upload", uploadData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        imageUrl = uploadRes.data.imageUrl; // => "/images/xxxx.jpg"
+      }
+
+      // Tạo dữ liệu sản phẩm
+      const newProduct = {
+        ...formData,
+        image: imageUrl || "/images/default.jpg",
+      };
+
+      // Gửi lên json-server
+      await axios.post("http://localhost:3000/products", newProduct);
+
+      alert("Thêm sản phẩm thành công!");
+      navigate("/products");
     } catch (error) {
-      console.log("Lỗi khi thêm sản phẩm: ", error);
+      console.error("❌ Lỗi khi thêm sản phẩm:", error);
+      alert("Thêm sản phẩm thất bại!");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4 fw-bold">Thêm sản phẩm mới</h2>
-      <form className="w-50 mx-auto" onSubmit={handleSubmit}>
+      <h2 className="mb-4 text-center fw-bold">Thêm sản phẩm mới</h2>
+      <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
         <div className="mb-3">
-          <label className="form-label">Tên sản phẩm</label>
+          <label className="form-label fw-bold">Tên sản phẩm</label>
           <input
             type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
             className="form-control"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Nhập tên sản phẩm"
+            required
           />
         </div>
+
         <div className="mb-3">
-          <label className="form-label">Giá</label>
+          <label className="form-label fw-bold">Giá</label>
           <input
-            type="number"
+            type="string"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
             className="form-control"
-            value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
-            placeholder="Nhập giá sản phẩm"
+            required
           />
         </div>
+
         <div className="mb-3">
-          <label className="form-label">Mô tả</label>
+          <label className="form-label fw-bold">Mô tả</label>
           <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
             className="form-control"
             rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Nhập mô tả sản phẩm"
+            required
           ></textarea>
         </div>
+
         <div className="mb-3">
-          <label className="form-label">Ảnh (URL)</label>
-          <input
-            type="text"
-            className="form-control"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            placeholder="Nhập link ảnh sản phẩm"
-          />
+          <label className="form-label fw-bold">Ảnh sản phẩm</label>
+          <input type="file" accept="image/*" onChange={handleFileChange} className="form-control" />
+          {file && (
+            <img
+              src={URL.createObjectURL(file)}
+              alt="preview"
+              className="mt-3 border rounded"
+              style={{ width: "100%", maxHeight: "300px", objectFit: "contain" }}
+            />
+          )}
         </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Thêm mới
+
+        <button
+          type="submit"
+          className="btn btn-primary w-100"
+          disabled={loading}
+        >
+          {loading ? "Đang thêm..." : "Thêm sản phẩm"}
         </button>
       </form>
     </div>

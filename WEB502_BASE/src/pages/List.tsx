@@ -23,7 +23,7 @@ function List() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/products?_page=${currentPage}&_limit=${productsPerPage}`
+          `http://localhost:3000/products?title_like=${search}&_page=${currentPage}&_limit=${productsPerPage}`
         );
 
         setProducts(res.data);
@@ -36,7 +36,7 @@ function List() {
       }
     };
     fetchData();
-  }, [currentPage]); // Khi đổi trang thì gọi lại API
+  }, [search, currentPage]); // Khi đổi trang thì gọi lại API
   //Filter theo search trước khi phân trang
   const filteredProducts = products.filter((p) =>
     p.title.toLowerCase().includes(search.toLowerCase())
@@ -55,8 +55,9 @@ function List() {
                   style={{ textDecoration: "none", color: "inherit" }}>
                   <img
                     src={
-                      product.image.startsWith("/images")
-                        ? product.image : `/images/${product.image}`
+                      product.image.startsWith("http")
+                        ? product.image
+                        : `http://localhost:4000${product.image.startsWith("/images") ? product.image : `/images/${product.image}`}`
                     }
                     alt={product.title}
                     className="card-img-top p-3"

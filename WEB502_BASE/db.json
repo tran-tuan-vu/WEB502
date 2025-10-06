@@ -111,6 +111,20 @@
       "price": 350000,
       "description": "Phong cách hiện đại",
       "image": "ao_tay_dai_2.webp"
+    },
+    {
+      "title": "Váy",
+      "price": 12000,
+      "description": "Váy cho nữ xinh xắn, dáng thể thao",
+      "image": "http://localhost:4000/images/1759769790415.jpg",
+      "id": 17
+    },
+    {
+      "title": "áo khoác",
+      "price": 700000,
+      "description": "áo khoác thời thượng",
+      "image": "http://localhost:4000/images/1759771067042.jpg",
+      "id": 18
     }
   ]
 }
