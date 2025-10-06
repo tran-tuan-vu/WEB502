@@ -25,16 +25,21 @@ function Detail() {
 
     return (
         <div className="container mt-4">
-            <div className="row">
-                <div className="col-md-5">
+            <div className="row align-items-center">
+                <div className="col-md-5 text-center">
                     <img
                         src={
                             product.image.startsWith("/images")
-                            ? product.image : `/images/${product.image}`
+                                ? product.image : `/images/${product.image}`
                         }
                         alt={product.title}
                         className="img-fluid border rounded p-3"
-                        style={{ maxHeight: "400px", objectFit: "contain" }}
+                        style={{
+                            maxHeight: "400px",
+                            objectFit: "contain",
+                            margin: "0 auto",
+                            display: "block"
+                        }}
                     />
                 </div>
                 <div className="col-md-7">

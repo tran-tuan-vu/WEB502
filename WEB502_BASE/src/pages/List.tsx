@@ -14,34 +14,40 @@ interface IProduct {
 function List() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const productsPerPage = 8;
   //Lấy giá trị search từ Layout
   const { search } = useOutletContext<{ search: string }>();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/products")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log("Lỗi khi lấy dữ liệu từ local: ", err));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/products?_page=${currentPage}&_limit=${productsPerPage}`
+        );
+
+        setProducts(res.data);
+
+        // Lấy tổng số sản phẩm từ header để tính tổng trang
+        const totalCount = parseInt(res.headers["x-total-count"] || "0");
+        setTotalPages(Math.ceil(totalCount / productsPerPage));
+      } catch (err) {
+        console.log("Lỗi khi lấy dữ liệu từ local: ", err);
+      }
+    };
+    fetchData();
+  }, [currentPage]); // Khi đổi trang thì gọi lại API
   //Filter theo search trước khi phân trang
   const filteredProducts = products.filter((p) =>
     p.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  //Tính toán dữ liệu theo trang
-  const indexOfLast = currentPage * productsPerPage;
-  const indexOfFirst = indexOfLast - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
-
-  //Tổng số trang
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
   return (
     <div className="container mt-4">
       <h2 className="mb-4 text-center fw-bold">Danh sách sản phẩm</h2>
       <div className="row">
-        {currentProducts.length > 0 ? (
-          currentProducts.map((product) => ( // Hiển thị sản phẩm theo currentProducts
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => ( // Hiển thị sản phẩm theo currentProducts
             <div className="col-md-3 mb-4" key={product.id}>
               <div className="card h-100 shadow-sm">
                 <Link
@@ -50,7 +56,7 @@ function List() {
                   <img
                     src={
                       product.image.startsWith("/images")
-                      ? product.image: `/images/${product.image}`
+                        ? product.image : `/images/${product.image}`
                     }
                     alt={product.title}
                     className="card-img-top p-3"
@@ -73,26 +79,25 @@ function List() {
         )}
       </div>
 
-      {
-        totalPages > 1 && (
-          <nav>
-            <ul className="pagination justify-content-center">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <li
-                  key={i}
-                  className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+      {totalPages > 1 && (
+        <nav>
+          <ul className="pagination justify-content-center">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <li
+                key={i}
+                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(i + 1)}
                 >
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(i + 1)} //Chuyển trang khi click
-                  >
-                    {i + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>)
-      }
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div >
   );
 };

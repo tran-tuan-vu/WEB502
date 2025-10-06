@@ -1,12 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Layout() {
   const [search, setSearch] = useState(""); // State để lưu giá trị tìm kiếm
-
+  const navigate = useNavigate();
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Search: ", search);
+    navigate("/products"); 
   };
 
   return (
