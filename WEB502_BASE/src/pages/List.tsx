@@ -69,8 +69,8 @@ function List() {
                   </div>
                 </Link>
                 <div className="mt-auto d-flex justify-content-between">
-                  <button className="btn btn-primary">Mua ngay</button>
-                  <button className="btn btn-outline-success">Add cart</button>
+                  <button className="btn btn-primary w-50 mx-2">Cập nhật</button>
+                  <button className="btn btn-danger w-50 mx-2">Xóa</button>
                 </div>
               </div>
             </div>
