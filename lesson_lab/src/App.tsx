@@ -1,26 +1,31 @@
 import { Toaster } from "react-hot-toast";
-import Button from "./components/Button";
-import ColorButton from "./components/ColorButton";
-import MyUseState from "./components/MyUseState";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 import Users from "./components/Users";
+import List from "./pages/List";
+import Add from "./pages/Add";
+import Edit from "./pages/Edit";
+import ClientLayout from "./layouts/ClientLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
 function App() {
-  // const handleClick = (name: string) => {
-  //   console.log(`Clicked ${name}`);
-    
-  // };
-  // const handleClick2 = () => alert("Clicked button 3!");
-
   return (
     <>
-      <div style={ {marginLeft: "100px"}}>Hello World</div>
-      {/* <ColorButton label="Random Color" onClick={() => handleClick("ColorBtn")} /> */}
+      <Routes>
+        {/* Client Layout */}
+        <Route path="/" element={<ClientLayout />}>
+          <Route index element={<Home />} />
+          <Route path="users" element={<Users />}></Route>
+        </Route>
 
-      {/* <Button label="Click Me 1" onClick={() => handleClick("hoadv")} /> */}
-      {/* <Button label="Click Me 3" onClick={handleClick2} />
-      <MyUseState />
-      <Toaster /> */}
-      <Users />
+        {/* Admin Layout */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="list" element={<List />}></Route>
+          <Route path="add" element={<Add />}></Route>
+          <Route path="edit" element={<Edit />}></Route>
+        </Route>
+      </Routes>
+      <Toaster />
     </>
   );
 }

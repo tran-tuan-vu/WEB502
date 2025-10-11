@@ -1,0 +1,36 @@
+{
+  "products": [
+    {
+      "id": 6,
+      "name": "Chuột không dây Logitech M220",
+      "price": 249000,
+      "image": "https://anphat.com.vn/media/lib/02-06-2021/gaming.jpg",
+      "description": "Chuột chống ồn, kết nối không dây ổn định, pin lâu.",
+      "category": "accessory"
+    },
+    {
+      "id": 7,
+      "name": "Máy in HP LaserJet Pro MFP",
+      "price": 5590000,
+      "image": "https://anphat.com.vn/media/lib/02-06-2021/gaming.jpg",
+      "description": "In laser đen trắng, in/scan, tốc độ cao cho văn phòng nhỏ.",
+      "category": "printer"
+    },
+    {
+      "id": 8,
+      "name": "Ổ cứng SSD Samsung 1TB",
+      "price": 1990000,
+      "image": "https://anphat.com.vn/media/lib/02-06-2021/gaming.jpg",
+      "description": "SSD NVMe 1TB cho hiệu năng đọc/ghi cao, tăng tốc hệ thống.",
+      "category": "accessory"
+    },
+    {
+      "id": 9,
+      "name": "Tai nghe Sony WH-CH710N",
+      "price": 2990000,
+      "image": "https://anphat.com.vn/media/lib/02-06-2021/gaming.jpg",
+      "description": "Tai nghe chống ồn, pin 35 giờ, âm thanh cân bằng.",
+      "category": "accessory"
+    }
+  ]
+}
